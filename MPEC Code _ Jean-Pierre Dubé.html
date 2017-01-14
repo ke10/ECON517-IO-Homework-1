@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/content-pages.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>MPEC Code | Jean-Pierre Dubé</title>
+<!-- InstanceEndEditable -->
+<link href="../css/faculty.css" rel="stylesheet" type="text/css" />
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<link href="../css/printpages.css" rel="stylesheet" type="text/css" media="print" />
+</head>
+
+<!--Begin Google Analytics-->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34792329-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!--End Google Analytics-->
+
+<body>
+<a name="top"></a>
+<div id="wrapper">
+  <div id="header">
+    <p>Jean-Pierre Dubé</p>
+    <p class="chair"><span class="font05em">Sigmund E. Edelstone Professor of Marketing</span></p>
+  </div>
+  <!-- InstanceBeginEditable name="Navigation" -->
+  <div id="navigation">
+    <ul>
+      <li><a href="../">Home</a></li>
+      <li><a href="chronological.html" class="currentpage">Research</a>
+        <ul>
+        <li><a href="chronological.html">Chronological List</a></li>
+        <li><a href="workingpapers.html">Working Papers</a></li>
+        <li><a href="data.html" class="currentpage">Data & Appendices</a></li>
+          <ul><li><a href="MPECcode.html" class="currentpage">MPEC Code</a></li></ul>
+        </ul>
+      <li><a href="../teaching.html">Teaching</a></li>
+      <li><a href="../vita/index.html">Curriculum Vitae</a></li>
+      <li><a href="../about-me.html">About Me</a></li>
+      <li><a href="../contact-me.html">Contact Me</a></li>
+    </ul>
+  </div>
+  <!-- InstanceEndEditable --><!-- InstanceBeginEditable name="Content" -->
+  <div id="content">
+    <h1>MPEC Code</h1>
+    <h2>MATLAB Code for BLP&rsquo;s GMM estimator of the Random Coefficients Logit  using the MPEC algorithm</h2>
+    <h4>Updated February 2012</h4>
+    <p><strong>If you use the code for  your research, kindly use the reference: </strong><a href="papers/ecta8585.pdf" target="_blank">Jean-Pierre  Dubé, Jeremy Fox and Che-Lin Su (2012), &quot;</a><a href="papers/ecta8585.pdf" target="_blank">Improving the Numerical Performance of BLP Static and Dynamic Discrete Choice Random Coefficients Demand Estimation,&quot; <em>Econometrica</em>, 2012, 80(5).</a></p>
+    <p><strong>Zip files with all downloadable code</strong>: <strong></strong></p>
+    <ul>
+      <ul>
+        <li><strong>MATLAB and TOMLAB:</strong> <a href="papers/MPEC_tomlab_Hessian.zip" target="_blank">MPEC_tomlab_Hessian.zip</a></li>
+        <li><strong>MATLAB and ktrlink:</strong> <a href="papers/MPEC_ktrlink_Hessian.zip" target="_blank">MPEC_ktrlink_Hessian.zip</a>    </li>
+      </ul>
+    </ul>
+    <h2>Overview of Code</h2>
+    <p>The script file, <a href="papers/main_MPEC_hessian.m" target="blank">main_MPEC_hessian.m</a>, runs the following steps:</p>
+  <ul>
+    <li>1. Creation of a synthetic data set</li>
+    <li>2. Estimation of Homogenous Logit via two-stage least  squares (which we use to formulate starting values for MPEC)</li>
+    <li>3. Estimation of Random Coefficients Logit via GMM  using the MPEC algorithm</p>
+    <li>4. Calculation of the standard errors for the MPEC  estimates</li>
+    <li>5. To increase the number of simulation draws use to  evaluate the integrals in the market shares, please edit the variable &quot;<em>nn&quot;</em>, in <a href="papers/main_MPEC_hessian.m" target="blank">main_MPEC_hessian.m</a>.  The default settings in the code are too low  for published work.</li>
+  </ul>
+<p>The code uses KNITRO.  KNITRO can now be called directly from the  MATLAB Optimization Toolbox using <em>ktrlink</em>.  Alternatively, KNITRO can be called in MATLAB  using the TOMLAB interface, a 3rd-party optimization toolbox that  enables calling state-of-the-art solvers such as KNITRO and SNOPT. To use  KNITRO with MATLAB&rsquo;s Optimization Toolbox, you must purchase a KNITRO  license directly from <a href="http://www.ziena.com/" target="_blank">Ziena</a> or Artelys.  If  you use the TOMLAB interface, then a KNITRO license (along with a TOMLAB  license) must be purchased directly from <a href="http://tomopt.com/tomlab/" target="_blank">TOMLAB Optimization</a>.</p>
+    <h2>Implementing MPEC</h2>
+    <p>To see the exact syntax used to call KNITRO through  TOMLAB, please refer to the function <a href="papers/runGMMMPECTomlab.m" target="blank">runGMMMPECTOMLAB.m</a>.  The code is able to handle a reasonably large  number of products and markets, and hence constraints.  This fact is due primarily to the fact that  the MPEC optimization problem (for BLP) is sparse.  An important step in using the constrained  optimization algorithm is to specify the sparsity pattern  of the constraints.  The use of sparse matrix representation  reduces memory concerns considerably.    </p>
+    <p>In addition, we supply the <u>analytic gradients</u> of the MPEC objective function, <a href="papers/GMMMPEC_grad.m" target="blank">GMMMPEC_grad.m</a>,  and of the constraints, <a href="papers/GMMMPEC_dc.m" target="blank">GMMMPEC_dc.m</a>, as well as the <u>Hessian</u> of the Lagrangian, <a href="papers/GMMMPEC_hess.m" target="blank">GMMMPEC_hess</a>.m, and of the constraints, <a href="papers/GMMMPEC_d2c.m" target="blank">GMMMPEC_d2c.m</a>.  The performance of the optimization routine is substantially  improved when this additional information is supplied.  Unless otherwise specified, we used  analytic gradients and Hessians to produce all the results  reported in the paper.    </p>
+    <p>Please note that the results  in the paper were produced using  the KNITRO solver, version 6. KNITRO recently released version 7.0.0.  In our experience, the new add-in linear equation solvers in Knitro 7.0.0 do not perform as well for BLP demand  estimation as the linear equation solver from version 6. Therefore, we recommend  using the following options when using KNITRO (7.0 or above): </p>
+    <p><strong>blasoption</strong><strong> 0</strong></p>
+    <p><strong>linsolver</strong><strong> 4</strong></p>
+    <p><strong>bar_directinterval</strong><strong> 100000</strong></p>
+    <p>Please refer  to the Knitro  manuals for a more detailed explanation of these settings.    </p>
+    <h2>Very Large-Scale Problems</h2>
+    <p>For models with more than 5,000 markets share equations,  users need to supply the constraint Jacobian, Hessian  and their respective sparsity patterns in sparse  matrix format.  Sparse matrices are  critical to economize on memory usage.   We have successfully solved instances of BLP models with 30,000 market  share equations (150 markets and 20 products) using 500 MB RAM and 50,000  market share equations (250 markets and 20 products) using 1.5 GB RAM. Please  contact the authors if you would like to request the MATLAB code for solving  large-scale BLP models.</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p><!-- #BeginLibraryItem "/library/Educational Use.lbi" -->
+<link href="../css/faculty.css" rel="stylesheet" type="text/css">
+<p class="educationaluse">Materials provided are for <strong>Educational Use Only</strong>. All articles are the sole Copyright of their respective publishers.</p><!-- #EndLibraryItem --></div>
+  <!-- InstanceEndEditable -->
+  <div id="footer"><!-- #BeginLibraryItem "/library/Links.lbi" -->
+<a href="http://research.chicagobooth.edu/marketing/index.aspx" target="_blank">Kilts Center for Marketing</a> | <a href="http://www.chicagobooth.edu/" target="_blank">Chicago Booth</a> |  <a href="http://www.uchicago.edu" target="_blank">University of Chicago</a>  | <!-- #EndLibraryItem --><!-- #BeginLibraryItem "/library/Copyright.lbi" --> &copy; 2012 Jean-Pierre Dubé. All rights reserved.<!-- #EndLibraryItem --></div>
+</div>
+</body>
+<!-- InstanceEnd --></html>
