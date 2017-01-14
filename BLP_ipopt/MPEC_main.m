@@ -15,7 +15,7 @@ nn = 100;                                           % # draws to simulate shares
 tol_inner = 1.e-14;                                 % NFP inner loop tolerance, for starting values here                                            % # Markets
 prods = 25;  
 T = 50;
-st arts = 5;                                         % # random start values to check during estimation
+starts = 5;                                         % # random start values to check during estimation
 
 
 %%%%%%%%%%%%%%%%%%%%%
