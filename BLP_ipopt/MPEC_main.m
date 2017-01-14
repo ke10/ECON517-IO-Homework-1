@@ -15,7 +15,7 @@ nn = 100;                                           % # draws to simulate shares
 tol_inner = 1.e-14;                                 % NFP inner loop tolerance, for starting values here                                            % # Markets
 prods = 25;  
 T = 50;
-st arts = 5;                                         % # random start values to check during estimation
+starts = 5;                                         % # random start values to check during estimation
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -80,7 +80,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%
 randn('seed',5000)                                   % reset normal random number generator
 rand('seed',5000)                                    % reset uniform random number generator
-xi = randn( numProdsTotal,1)*sigmaxi;                % draw demand shocks
+xi = randn(numProdsTotal,1)*sigmaxi;                % draw demand shocks
 A = randn(numProdsTotal,K-1)*chol(covX);             % product attributes
 prand = rand(numProdsTotal,1)*5;
 price = 3 +   xi*1.5 +  prand + sum(A,2);
